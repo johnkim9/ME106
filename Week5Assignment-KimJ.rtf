@@ -1,0 +1,131 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh7600\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 1. Keys in dictionary:\
+ - EID, Last Name, First Name, Address, City, State, Zip5, Email 1, Email 2, Phone 2, Volunteer, Precinct Captain\
+ \
+2. a) 588 Example St.\
+    b) True\
+    c) error\
+    d) 3345555934\
+    e) 3345555934\
+    f) 36108\
+    g) error\
+    h) 3342\
+\
+3. \
+\
+count = 0\
+\
+import csv\
+\
+with open('volunteer.csv','r') as vol_file:\
+    csv_reader = csv.reader(vol_file)\
+    for row in csv_reader:\
+        count = count + 1\
+\
+print (count)\
+\
+4.\
+\
+import csv\
+\
+count = 0\
+\
+with open('volunteer.csv', 'r') as volunteer_file:\
+    csv_reader = csv.DictReader(volunteer_file)\
+    for row in csv_reader:\
+        if row["Donor"] == "Yes":\
+            count = count + 1\
+        elif row["Volunteer"] == "Yes":\
+            count = count + 1\
+print(count)\
+\
+5 a)\
+\
+import csv\
+\
+people = 0\
+donors = 0\
+volunteers = 0\
+\
+with open('volunteer.csv', 'r') as volunteer_file:\
+    csv_reader = csv.DictReader(volunteer_file)\
+    for row in csv_reader:\
+        if row["EID"] != " ":\
+            people = people + 1\
+        elif row["Donor"] == "Yes":\
+            donors = donors + 1\
+        elif row["Volunteer"] == "Yes":\
+            volunteers = volunteers + 1\
+\
+print(people)\
+print(donors)\
+print(volunteers)\
+\
+5 b)\
+import csv\
+\
+with open('volunteer.csv', 'r') as volunteer_file:\
+    csv_reader = csv.DictReader(volunteer_file)\
+    for row in csv_reader:\
+        if row["Volunteer"] == "Yes":\
+            print(row["First Name"],row["Last Name"],row["City"], row["State"],row["Email 1"],row["Email 2"],row["Phone 1"])\
+\
+6. \
+import csv\
+\
+with open('volunteer.csv', 'r') as volunteer_file:\
+    csv_reader = csv.DictReader(volunteer_file)\
+    \
+    with open('newNames.csv', 'w') as new_file:\
+        headers = ["First Name", "Last Name", "City", "State", "Email 1", "Email 2", "Phone 1"]\
+        csv_writer = csv.DictWriter(new_file, fieldnames=headers, delimiter=',')\
+        \
+        csv_writer.writeheader()\
+        for row in csv_reader:\
+            if row["Volunteer"] == "Yes":\
+                csv_writer.writerow(\{"First Name":row["First Name"], "Last Name":row["Last Name"], "City":row["City"],"State":row["State"], "Email 1":row["Email 1"],"Email 2":row["Email 2"], "Phone 1":row["Phone 1"]\})\
+\
+7.\
+response = input("Do you want a csv of all volunteers or everyone on the list whose name starts with a specific letter? Enter 'Volunteers' for csv of all volunteers or type the specific letter: ")\
+if response == "Volunteers":\
+    import csv\
+\
+with open('volunteer.csv', 'r') as volunteer_file:\
+    csv_reader = csv.DictReader(volunteer_file)\
+\
+    with open('newNames.csv', 'w') as new_file:\
+        headers = ["First Name", "Last Name", "City", "State", "Email 1", "Email 2", "Phone 1"]\
+        csv_writer = csv.DictWriter(new_file, fieldnames=headers, delimiter=',')\
+\
+        csv_writer.writeheader()\
+        for row in csv_reader:\
+            if row["Volunteer"] == "Yes":\
+                csv_writer.writerow(\{"First Name":row["First Name"], "Last Name":row["Last Name"], "City":row["City"],"State":row["State"], "Email 1":row["Email 1"],"Email 2":row["Email 2"], "Phone 1":row["Phone 1"]\})\
+\
+else:\
+    import csv\
+\
+with open('volunteer.csv', 'r') as volunteer_file:\
+    csv_reader = csv.DictReader(volunteer_file)\
+\
+    with open('newNames.csv', 'w') as new_file:\
+        headers = ["First Name", "Last Name", "City", "State", "Email 1", "Email 2", "Phone 1"]\
+        csv_writer = csv.DictWriter(new_file, fieldnames=headers, delimiter=',')\
+\
+        csv_writer.writeheader()\
+        for row in csv_reader:\
+            if row["Volunteer"] == "Yes" and row["First Name"] == range(0):\
+                csv_writer.writerow(\{"First Name":row["First Name"], "Last Name":row["Last Name"], "City":row["City"],"State":row["State"], "Email 1":row["Email 1"],"Email 2":row["Email 2"], "Phone 1":row["Phone 1"]\})\
+\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\sl280\partightenfactor0
+\cf0 \
+}
